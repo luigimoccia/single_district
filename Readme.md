@@ -34,11 +34,11 @@ mamba env create -f environment.yml
 name_solver = 'gurobi'
 ```
 ## How to execute an already existing scenario
-1 Activate the environment `single_district` (or your existing PyPSA env):
+1. Activate the environment `single_district` (or your existing PyPSA env):
 ```shell
 conda activate single_district
 ```
-2 In the subfolder [scenarios_and_results](./scenarios_and_results) there are several yaml files with already defined scenarios.
+2. In the subfolder [scenarios_and_results](./scenarios_and_results) there are several yaml files with already defined scenarios.
 For example, to execute  `Scenario_A.yaml` from the command line type in the main directory the following (there is not need to specify the path)
 ```shell
 python single_district.py -s Scenario_A
