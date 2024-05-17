@@ -52,4 +52,17 @@ There are three ways, depending on your objectives.
 
 ## Output examples
 Please, refer to Section XX of the [technical report](./reports/District_baseload_S_Italy.pdf) where the code output is fully described. The following figures are provided here for your convenience.
-The  subfolder [scenarios_and_results](./scenarios_and_results) contains pdf files of the solved scenarios.
+The  subfolder [scenarios_and_results](./scenarios_and_results) contains png files of the solved scenarios.
+![](scenarios_and_results/Scenario_A_run00.png)
+
+![](scenarios_and_results/Scenario_A_cost_revenue.png)
+![](scenarios_and_results/Scenario_A_cost_price.png)
+![](scenarios_and_results/Scenario_A_storage_SOC.png)
+
+![](scenarios_and_results/Scenario_A_gen_capacities.png)
+![](scenarios_and_results/Scenario_A_investment.png)
+![](scenarios_and_results/Scenario_A_Methanation.png)
+![](scenarios_and_results/Scenario_A_H2compressor.png)
+
+![](scenarios_and_results/Scenario_A_price_duration.png)
+
