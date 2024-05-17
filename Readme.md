@@ -13,19 +13,20 @@ Rooftop solar may be analyzed under two alternative profiles of the hourly capac
 Short, medium and long-term storage technologies are considered along integrative biogenic gases.
 
 For further details, please see the [technical report](./reports/District_baseload_S_Italy.pdf) where the model depicted in the following figure is fully described.
-![](./figures/model_as_graph.pdf)
+![](./figures/model_as_graph.png)
 
-## Open source
-This code is open source, see license and it is a fork of the open source project [PyPSA - Python for Power System Analysis](https://pypsa.readthedocs.io/en/latest/index.html).
+## Open source license and aknowledgments
+The code in this repo is MIT licensed, see [`./LICENSE.md`](./LICENSE.md), and it is based on the open source project [PyPSA - Python for Power System Analysis](https://pypsa.readthedocs.io/en/latest/index.html).
 
 The code in its default settings uses input CF files from the open source project [Renewables.ninja](https://www.renewables.ninja/).
 
 ## How to install
-1. Install the python environment (I tested it with mamba, but you can try with your favorite package manager)
+1. If you already have a working PyPSA environment you may prefer to directly execute the code in it, then go to step 3. If this fails, or you prefer to create ex-novo a python environment, go to step 2.
+2. Install the python environment (I tested it with [`mamba`](https://mamba.readthedocs.io/en/latest/), but you can try with your favorite package manager)
 ```shell
 mamba env create -f environment.yml
 ```
-2. Ensure that you have a license of a LP solver compatible with PyPSA. The code assumes Gurobi as the default solver. If you want or need to use a different solver, then you need to:
+3. Ensure that you have a license of a LP solver compatible with PyPSA. The code assumes Gurobi as the default solver. If you want or need to use a different solver, then you need to:
 	- [read the section 'Getting a solver for optimisation' of this PyPSA tutorial](https://pypsa.readthedocs.io/en/latest/installation.html)
     - install the solver and the solver interface in the python environment (follow your solver instructions);
     - modify the code `single_district.py`. In the following assignment use the name of the solver of your choice, the default is:
@@ -33,7 +34,7 @@ mamba env create -f environment.yml
 name_solver = 'gurobi'
 ```
 ## How to execute an already existing scenario
-1 Activate the environment `single_district`
+1 Activate the environment `single_district` (or your existing PyPSA env):
 ```shell
 conda activate single_district
 ```
