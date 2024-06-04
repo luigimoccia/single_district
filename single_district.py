@@ -1404,8 +1404,8 @@ def advanced_network_statistics_V2(network,
     non_fossil_fraction = tot_non_fossil_output / Tot_el_generated
     Curtailment = tot_pot_non_fossil_output - tot_non_fossil_output # TWh
     
-    curtailment_pc = 0
-    if tot_non_fossil_output > 0:
+    curtailment_pc = 0.
+    if tot_non_fossil_output > epsilon:
         Overgeneration_factor = tot_pot_non_fossil_output / tot_non_fossil_output
         curtailment_pc = (Overgeneration_factor - 1.) * 100
     else:
@@ -2174,8 +2174,8 @@ def make_some_nice_charts_statistics(network,
     print("all_tech_primary_output_shares", all_tech_primary_output_shares) 
 
     results = {
-        'Primary generation \n (%.2f TWh)' %float(Tot_el_generated) : np.round(all_tech_primary_output_shares,2),
-        'Delivered electricity  \n (%.2f TWh)' %   float(Tot_el_delivered)     : np.round(all_tech_dispatch_shares,2),
+        'Primary generation \n (%.2f TWh/y)' %float(Tot_el_generated) : np.round(all_tech_primary_output_shares,2),
+        'Delivered electricity  \n (%.2f TWh/y)' %   float(Tot_el_delivered)     : np.round(all_tech_dispatch_shares,2),
         'Levelized Cost of System \n LCOS  (%.f €/MWh) ' % np.round(LCOS,0) : np.round(all_tech_LCOS_shares,2)
     }
 
@@ -2363,8 +2363,8 @@ def plot_all_storage_SOC_log(network, all_storage_tech_list, storage_single_link
     fig,ax = plt.subplots(1,1,figsize=(14,5))
     plt.yscale("log")  
     ax.set_xlabel("Hour of the year")
-    ax.set_ylabel("MWh")
-    plt.title(" State of Charge  \n in the legend the storage rotation rate (number of full cycles per year)")
+    ax.set_ylabel(r"MWh or tCO$_2$")
+    plt.title("State of Charge  \n in the legend the storage rotation rate (number of full cycles per year)")
     for my_l in all_storage_tech_list:
         if my_l not in storage_single_link_list:
             nice_name = dict_all_tech_nice_labels[my_l]
@@ -2411,11 +2411,11 @@ fig,ax = plt.subplots(1,1,figsize=(12,4))
 #plt.yscale("log")  
 ax2 = ax.twinx()
 ax.set_xlabel("Hour of the year")
-ax.set_ylabel("MW of H2")
+ax.set_ylabel(r"MW of H$_2$")
 ax.set_ylim(0, network.links.loc["SynCH4_in", "p_nom_opt"] * 1.1)
 ax2.set_ylim(0, network.links_t.p2["SynCH4_in"].max() * 1.1)
 
-ax2.set_ylabel("ton CO2")
+ax2.set_ylabel(r"ton CO$_2$")
 CF_SynCH4 = network.links_t.p0["SynCH4_in"].sum() /network.links.loc["SynCH4_in", "p_nom_opt"]/8760.
 ax.plot(network.links_t.p0["SynCH4_in"], color="g", ls=":")
 ax2.plot(network.links_t.p2["SynCH4_in"], color="y", ls="-.")
@@ -2426,7 +2426,7 @@ CH4_out = - network.links_t.p1["SynCH4_in"].sum()/1.e+6
 E_compH2_out = - network.links_t.p1["compH2_out"].sum()/1.e+6
 E_electrolysis = - network.links_t.p1["H2_in"].sum()/1.e+6
 share_comp = E_compH2_out / E_electrolysis * 100.
-plt.title("Methanation, H2 input (left y-axis), CO2 (right y-axis), CF %.2f, input H2 %.2f (TWh/y) of which comp %.2f (%%), plus CO2 %.2f (Mt/y), output CH4 %.2f (TWh/y)" % (CF_SynCH4, E_H2_in, share_comp, T_CO2_in, CH4_out))
+plt.title(r"Methanation, H$_2$ input (left y-axis), CO$_2$ (right y-axis), CF %.2f, input H$_2$ %.2f (TWh/y) of which comp. %.2f (%%), plus CO$_2$ %.2f (Mt/y), output CH$_4$ %.2f (TWh/y)" % (CF_SynCH4, E_H2_in, share_comp, T_CO2_in, CH4_out))
 print(share_comp)
 plt.tight_layout()
 # Define the date format

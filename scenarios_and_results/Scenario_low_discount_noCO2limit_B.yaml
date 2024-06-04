@@ -1,0 +1,89 @@
+costs:
+  fill_values:     # These fill values are used for those missing in the input file for tech. parameters
+    FOM: 0
+    VOM: 0
+    efficiency: 1
+    fuel: 0
+    investment: 0
+    lifetime: 25
+    "CO2 intensity": 0
+    "discount rate": 0.032   # NB this parameter changes the capex only for techs that don't already have a specified discount rate in the csv file
+
+    
+# Switch the generator and storage tech set by these boolean values True False
+
+#  Generation:
+with_onshorewind     : True
+with_solar_utility_tracker           : False
+with_solar_rooftop   : True
+with_solar_roof_best : True  # if False active a rooftop profile with a smaller CF
+with_OCGT            : True
+with_CCGT            : True  # CCGT has a very small system benefit, for simplicity can be deactivated
+with_nuclear         : True
+with_nuc_fleet       : True  # If true impose the capacity factor as a global cosntarint, otherwise devise a CF array with summer refueling & maint.
+with_bioCH4          : False
+with_mft             : False   # allow OCGT and CCGT to receive as input H2, i.e. multi-fuel turbine
+
+# Storage:
+with_SD              : True    # Li-ion battery, SD short duration
+with_LD1             : False   # ACAES
+with_PHS             : True
+with_FC              : True    # Fuel Cell
+with_SynCH4          : True    # Methanation 
+with_DAC             : True
+with_ex_CO2          : False   # Exogenous source of CO2 at a fixed price  
+
+# Demand:
+#Electricity demand profile
+with_constand_d      : True   # if True a constant 1GW demand otherwise a variable demand with the 2015 profile scaled down to 8.76 TWh/y
+with_demand_H2       : 0.   # if larger than zero add a constant demand of H2 with this value multiplied by the average electric hourly load
+Hourly_Avg_demand : 1.e+3 # MWh
+file_demand_path : "./data/electricty_demand_Italy_scaled.csv"
+
+# Other:
+do_parametric_runs : False # If a zero CO2 constraint is not active and if this parameter is active then it activates a parametric multi-run
+co2_limit : 1.e+7
+
+# Fuel and feedstock costs of exogenous inputs 
+fuel_cost_fossilCH4 : 20.  # €/MWh_th
+fuel_cost_bioCH4    : 60.  # €/MWh_th
+co2_feedstock_cost  : 100.  # €/t_CO2   input cost for methanization, this is exogenous
+
+
+# Files 
+
+name_file_tech_parameters : './data/costs_2050_plus_others.csv'
+
+# Renewable ninja csv files, one onshore wind and thre for solar
+# Please verify that the parameter year_ninja expresses the same year for the capacity factor files, otherwise an error will occur
+year_ninja               : 2010
+
+#wind_file_name_and_path : "./data_ren_ninja/ninja_wind_39.2604_16.2826_corrected_CF19pc.csv" # Cosenza CF 19.1%
+#wind_file_name_and_path : "./data_ren_ninja/ninja_wind_39.3904_17.0573_corrected.csv"  # Cirò, best turbine
+#wind_file_name_and_path : "./data_ren_ninja/Padova_ninja_wind_45.4077_11.8734_corrected.csv" # Wind in Padua CF 20%
+#wind_file_name_and_path : "./data_ren_ninja/ninja_wind_39.3817_17.0614_corrected_CF31.csv" # Cirò, CF 31%
+wind_file_name_and_path : "./data_ren_ninja/Sibari_MERRA2_2010_Wind_V150_4000_CF33_5_ninja_wind_39.6913_16.4823_corrected.csv" # Sibari, CF 33.5%
+
+#solar_file_name_and_path : "./data_ren_ninja/ninja_pv_39.3904_17.0573_uncorrected.csv" # Cirò CF 24%
+solar_file_name_and_path : "./data_ren_ninja/Sibari_MERRA2_2010_Solar_1_tracking_CF22_2_ninja_pv_39.6913_16.4823_uncorrected.csv" # Sibari CF 22.2%
+
+#solar_file_name_and_path2 : "./data_ren_ninja/ninja_pv_39.3817_17.0614_uncorrected.csv" #rooftop Cirò
+solar_file_name_and_path2 : "./data_ren_ninja/Sibari_MERRA2_2010_Solar_fixed39_CF17_7_ninja_pv_39.6913_16.4823_uncorrected.csv" # Rooftop in Sibari
+
+#solar_file_name_and_path3 : "./data_ren_ninja/Padova_ninja_pv_45.4077_11.8734_uncorrected.csv" # rooftop in Padua
+solar_file_name_and_path3 : "./data_ren_ninja/Mantova_MERRA2_2010_Solar_fixed39_CF13_9_ninja_pv_45.0829_10.6483_uncorrected.csv" # Rooftop in Mantova
+
+
+# Switch bewteen differet H2 tec sets
+#type_of_H2_storage : 'hydrogen storage tank type 1 including compressor'
+type_of_H2_storage   : 'H2_storage_surface_IEA'
+#type_of_H2_storage   :'hydrogen storage underground'
+type_of_electrolysis : "electrolysis_IEA"
+#type_of_electrolysis : 'electrolysis'
+type_of_H2_compressor : "hydrogen storage compressor"
+
+
+
+
+
+
