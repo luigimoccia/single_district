@@ -9,7 +9,7 @@ Beside nuclear, the non-fossil electric technologies that may be activated are:
 - rooftop solar
 - ground-based photovoltaic (GPV), also referred as *solar utility*
 
-Rooftop solar may be analyzed under two alternative profiles of the hourly *capacity factor** (CF).
+Rooftop solar may be analyzed under two alternative profiles of the hourly *capacity factor* (CF).
 Short, medium and long-term storage technologies are considered along integrative biogenic gases.
 
 For further details, please see the [technical report](./reports/District_baseload_S_Italy.pdf) where the model depicted in the following figure is fully described.
@@ -47,7 +47,7 @@ python single_district.py -s Scenario_A
 ## How to define new scenarios
 There are three ways, depending on your objectives.
 1. If the objective is exploring scenario variants given the default techno-economic parameters, then it is simple: define a new scenario by a new yaml file and execute it.
-2. If you want to explore new parameter sets you need to modify the techno-economic csv files in the subfolders [data](./data) and [data_ren_ninja](./data_ren_ninja).
+2. If you want to explore new parameter sets you need to modify the techno-economic csv files in the subfolders [data](./data) and [data_ren_ninja](./data_ren_ninja). [A how-to guide for the renewable availability profile here](./data_ren_ninja/Readme.md)
 3. If you want to modify the structure of the model, for example adding sub-systems or defining new links, then you need to modify the code in `single_district.py`. This may not be straightforward, even if you already know how to code in PyPSA, since the code uses custom procedures for the post-optimization analysis and mapping errors between the new defined model features and these post-opt procedures may occur.
 
 ## Output examples
@@ -60,7 +60,7 @@ These results refer to a scenario where there are no vetoes to land-based wind a
 The following figure illustrates the main performance indices of the minimum system cost solution.
 The three bars report the percentage contribution of the technologies to the following system values, from top to bottom: primary generation,  delivered electricity, and unitary cost of the delivered services.
 These three system values are listed as labels in the left vertical axis.
-The unitary cost index is indicated as *Levelized Cost of System** (LCOS), is expressed in euro per MWh, and refers to the weighted average of electricity and hydrogen costs.
+The unitary cost index is indicated as *Levelized Cost of System* (LCOS), is expressed in euro per MWh, and refers to the weighted average of electricity and hydrogen costs.
 For legibility we do not include in the bars the numerals of percentages lower than 1.5%.
 The figure title lists the following additional performance indices of the optimal solution.
 First, the CO2 emission factor, which is zero in this scenario that includes a full decarbonization constraint.
