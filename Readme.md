@@ -7,9 +7,9 @@ This code minimizes the system cost of a  nuclear-sized district supplying elect
 Beside nuclear, the non-fossil electric technologies that may be activated are:
 - onshore wind
 - rooftop solar
-- ground-based solar
+- ground-based photovoltaic (GPV), also referred as *solar utility*
 
-Rooftop solar may be analyzed under two alternative profiles of the hourly capacity factor (CF).
+Rooftop solar may be analyzed under two alternative profiles of the hourly *capacity factor** (CF).
 Short, medium and long-term storage technologies are considered along integrative biogenic gases.
 
 For further details, please see the [technical report](./reports/District_baseload_S_Italy.pdf) where the model depicted in the following figure is fully described.
@@ -60,10 +60,10 @@ These results refer to a scenario where there are no vetoes to land-based wind a
 The following figure illustrates the main performance indices of the minimum system cost solution.
 The three bars report the percentage contribution of the technologies to the following system values, from top to bottom: primary generation,  delivered electricity, and unitary cost of the delivered services.
 These three system values are listed as labels in the left vertical axis.
-The unitary cost index is indicated as Levelized Cost of System (LCOS), is expressed in euro per MWh, and refers to the weighted average of electricity and hydrogen costs.
+The unitary cost index is indicated as *Levelized Cost of System** (LCOS), is expressed in euro per MWh, and refers to the weighted average of electricity and hydrogen costs.
 For legibility we do not include in the bars the numerals of percentages lower than 1.5%.
 The figure title lists the following additional performance indices of the optimal solution.
-Although the main scenarios discussed in this paper include a zero CO2 constraint, and therefore the CO2 emission factor is always zero, this index is stated in the title.
+First, the CO2 emission factor, which is zero in this scenario that includes a full decarbonization constraint.
 Curtailment is reported next as percentage of the primary generation of electricity.
 The shadow price of CO2  is expressed in euro per ton.
 The delivered quantities and costs of the two energy services are expressed in TWh per year and euro per unit of energy, respectively. For hydrogen a cost equivalence in euro per unit of mass is also indicated.
@@ -106,18 +106,32 @@ The net capacity factor is a result of the optimization, and refers to the usefu
 The average price per unity of service delivered is indicated as a black diamond.
 This average price is derived by the dual variables of the linear program.
 Observe that in this scenario there are no active constraints on the minimum capacity of technologies.
-Therefore, each installed technology satisfies equality between costs and revenues, i.e. there is cost-price parity
+Therefore, each installed technology satisfies equality between costs and revenues, i.e. there is cost-price parity [Brown and Reichenberg, 2021](https://www.sciencedirect.com/science/article/pii/S0140988321002607).
+.
 ![](scenarios_and_results/Scenario_low_discount_bio_A_cost_price.png)
 
 ### Cost-revenue balances
+The following figure illustrates the cost-revenue balance for each technology.
+Observe how technologies with a high unitary cost/price in the previous figure play a minor role when they are ranked by their revenue.
 ![](scenarios_and_results/Scenario_low_discount_bio_A_cost_revenue.png)
 
 ###  Duration curve of the electricity price
+The following figure illustrates the duration curve of the hourly electricity prices (logaritmic scale).
+We observe that in three fourths of the time the price is very low. This share coincides with that of wind and solar in the dispatched electricity see mid bar of the main indices figure.
+The remaining fourth of the time exhibits increasing prices depending on the marginal cost of storage.
+Thus, the average yearly price remains low although some hours face high prices to remunerate storage sub-systems.
+The cost-price figure indicates that the most expensive electricity supply in this scenario is by OCGT with a net CF of 9% and an average price of 140 €/MWh.
+Although this technology is expensive, it is cheaper than a hypothetical nuclear with CF of 9% which will cost ca. 800 €/MWh.
+This is why nuclear does not enter the optimal mix, and it displays lower than maximum CF when (in other scenarios) competes with partially vetoed renewables. The marginal cost of nuclear, albeit low, is not near zero as for wind and solar.
+This system dynamics is well known and leads some authors to be skeptical of a relevant role of nuclear in the first half of this century [Haywood et al., 2023](https://www.cell.com/joule/abstract/S2542-4351(23)00281-7).
+.
 ![](scenarios_and_results/Scenario_low_discount_bio_A_price_duration.png)
 
 
-### Invesment
+### Investment
+The following figure decomposes the total investment in the district by technologies.
 ![](scenarios_and_results/Scenario_low_discount_bio_A_investment.png)
 
 ### Operation of the methanation plant
+The following figure provides operational details of the methanation plant. Observe that methanation is modeled as continuous process with a 30% minimum capacity factor.
 ![](scenarios_and_results/Scenario_low_discount_bio_A_Methanation.png)
