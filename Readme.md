@@ -124,7 +124,6 @@ The cost-price figure indicates that the most expensive electricity supply in th
 Although this technology is expensive, it is cheaper than a hypothetical nuclear with CF of 9% which will cost ca. 800 €/MWh.
 This is why nuclear does not enter the optimal mix, and it displays lower than maximum CF when (in other scenarios) competes with partially vetoed renewables. The marginal cost of nuclear, albeit low, is not near zero as for wind and solar.
 This system dynamics is well known and leads some authors to be skeptical of a relevant role of nuclear in the first half of this century [Haywood et al., 2023](https://www.cell.com/joule/abstract/S2542-4351(23)00281-7).
-.
 ![](scenarios_and_results/Scenario_low_discount_bio_A_price_duration.png)
 
 
