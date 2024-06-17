@@ -2,7 +2,7 @@
 ## Introduction
 This code minimizes the system cost of a  nuclear-sized district supplying electricity and an optional service with hydrogen as carrier.
 
-"Nuclear-sized" refers to the default assumption on the served demands:  if the district would deploy nuclear as primary source it would then require a gen III/III+ reactor of ~1.6 GWe.
+"Nuclear-sized" refers to the default assumption on the served demands:  if the district would deploy nuclear as primary source it would then require a gen III/III+ reactor of ~1.5 GWe.
 
 Beside nuclear, the non-fossil electric technologies that may be activated are:
 - onshore wind
@@ -26,7 +26,7 @@ The code in its default settings uses input CF files from the open source projec
 ```shell
 mamba env create -f environment.yml
 ```
-3. Ensure that you have a license of a LP solver compatible with PyPSA. The code assumes Gurobi as the default solver. If you want or need to use a different solver, then you need to:
+3. Ensure that you have a license of a LP solver compatible with PyPSA. The code assumes Gurobi as the default solver. If you want to use a different solver, then you need to:
 	- [read the section 'Getting a solver for optimisation' of this PyPSA tutorial](https://pypsa.readthedocs.io/en/latest/installation.html)
     - install the solver and the solver interface in the python environment (follow your solver instructions);
     - modify the code `single_district.py`. In the following assignment use the name of the solver of your choice, the default is:
@@ -51,18 +51,73 @@ There are three ways, depending on your objectives.
 3. If you want to modify the structure of the model, for example adding sub-systems or defining new links, then you need to modify the code in `single_district.py`. This may not be straightforward, even if you already know how to code in PyPSA, since the code uses custom procedures for the post-optimization analysis and mapping errors between the new defined model features and these post-opt procedures may occur.
 
 ## Output examples
-Please, refer to Section XX of the [technical report](./reports/District_baseload_S_Italy.pdf) where the code output is fully described. The following figures are provided here for your convenience.
-The  subfolder [scenarios_and_results](./scenarios_and_results) contains png files of the solved scenarios.
-![](scenarios_and_results/Scenario_A_run00.png)
+Please, refer to Section 5 of the [technical report](./reports/District_baseload_S_Italy.pdf) where the code output is fully described.
+The  subfolder [scenarios_and_results](./scenarios_and_results) contains png files of all the solved scenarios.
+The following figures are provided here for your convenience.
+These results refer to a scenario where there are no vetoes to land-based wind and solar, and biogenic gases are allowed.
 
-![](scenarios_and_results/Scenario_A_cost_revenue.png)
-![](scenarios_and_results/Scenario_A_cost_price.png)
-![](scenarios_and_results/Scenario_A_storage_SOC.png)
+### Main indices
+The following figure illustrates the main performance indices of the minimum system cost solution.
+The three bars report the percentage contribution of the technologies to the following system values, from top to bottom: primary generation,  delivered electricity, and unitary cost of the delivered services.
+These three system values are listed as labels in the left vertical axis.
+The unitary cost index is indicated as Levelized Cost of System (LCOS), is expressed in euro per MWh, and refers to the weighted average of electricity and hydrogen costs.
+For legibility we do not include in the bars the numerals of percentages lower than 1.5%.
+The figure title lists the following additional performance indices of the optimal solution.
+Although the main scenarios discussed in this paper include a zero CO2 constraint, and therefore the CO2 emission factor is always zero, this index is stated in the title.
+Curtailment is reported next as percentage of the primary generation of electricity.
+The shadow price of CO2  is expressed in euro per ton.
+The delivered quantities and costs of the two energy services are expressed in TWh per year and euro per unit of energy, respectively. For hydrogen a cost equivalence in euro per unit of mass is also indicated.
+The system cost minimization yields the LCOS, which is the equivalent objective function since the quantities of the delivered energy services are input parameters.
+Comparing the decomposition by technology of the three bars highlights the relative cost contribution.
+For example, in this scenario solar requires only 21% of the LCOS while providing 37% of the dispatched electricity and 59% of the primary generation.
+The disaggregation of the LCOS in the costs of the two energy services, electricity and hydrogen, allows to answer the question if the district can competitively supply industrial plants.
+While the delivered electricity and hydrogen are input parameters, the primary generation and curtailment are results of the system cost minimization.
+The primary generation compounded by the curtailment rate provides insights on the effective environmental impact of the energy production.
+![](scenarios_and_results/Scenario_low_discount_bio_A_run00.png)
 
-![](scenarios_and_results/Scenario_A_gen_capacities.png)
-![](scenarios_and_results/Scenario_A_investment.png)
-![](scenarios_and_results/Scenario_A_Methanation.png)
-![](scenarios_and_results/Scenario_A_H2compressor.png)
+### Installed capacities
+The following figure shows the capacities of the installed technologies.
+Power capacities are depicted in yellow and blue for the input and output, respectively.
+The power scale is the top horizontal axis with MW as unit.
+For DAC, a technology with mass flow as output, the unit is ton of CO2 per hour.
+The storage capacities, of energy or mass, are reported as red bars and their scale is the bottom horizontal axis with MWh or ton of CO2 as unit. This scale is logarithmic.
+The red bars are labeled with the maximum duration of discharge, expressed in hours.
+This index is the ratio between the installed energy and power output capacities.
+![](scenarios_and_results/Scenario_low_discount_bio_A_gen_capacities.png)
 
-![](scenarios_and_results/Scenario_A_price_duration.png)
+### State of charge of storage
+The following figure depicts the hourly state of charge of the installed storage technologies.
+The vertical axis is in logarithmic scale. The legend reports the yearly rotation rate of the installed storage capacity of each technology.
+For storage technologies, this and the previous figure show the interplay of the yearly rotation rate and maximum discharge in the system optimization. Technologies optimally configured with low discharge rates  tends to have high rotation rates, and vice versa.
+This comparison should clarify why some studies fail in properly optimize renewable-based energy systems: they pre-assign non optimal roles to storage technologies, such as for example, setting batteries for long discharge and low rotation rate or electrolysis for short discharge and high rotation rate.
+![](scenarios_and_results/Scenario_low_discount_bio_A_storage_SOC.png)
 
+
+
+### Cost structures and prices
+The following figure shows the cost structure and price per unity of service delivered of each installed technology.
+The unitary cost is the sum of the following three components:
+- CAPEX + FO&M,  the investment annuity and the fixed operations and management costs.
+- VO&M, the variable operations and management costs.
+- input, the cost of the inputs. For example, the electrolysis input cost is the cost of the required electricity, and the input cost of methanation is the cost of the required hydrogen and CO2.
+
+Each unitary cost bar indicates in its label the net capacity factor of the technology.
+The net capacity factor is a result of the optimization, and refers to the useful generation excluding curtailment.
+The average price per unity of service delivered is indicated as a black diamond.
+This average price is derived by the dual variables of the linear program.
+Observe that in this scenario there are no active constraints on the minimum capacity of technologies.
+Therefore, each installed technology satisfies equality between costs and revenues, i.e. there is cost-price parity
+![](scenarios_and_results/Scenario_low_discount_bio_A_cost_price.png)
+
+### Cost-revenue balances
+![](scenarios_and_results/Scenario_low_discount_bio_A_cost_revenue.png)
+
+###  Duration curve of the electricity price
+![](scenarios_and_results/Scenario_low_discount_bio_A_price_duration.png)
+
+
+### Invesment
+![](scenarios_and_results/Scenario_low_discount_bio_A_investment.png)
+
+### Operation of the methanation plant
+![](scenarios_and_results/Scenario_low_discount_bio_A_Methanation.png)
