@@ -80,6 +80,7 @@ The following figure shows the capacities of the installed technologies.
 Power capacities are depicted in yellow and blue for the input and output, respectively.
 The power scale is the top horizontal axis with MW as unit.
 For DAC, a technology with mass flow as output, the unit is ton of CO2 per hour.
+The output of e-CH4 refers to the link between the geological storage and the methane bus, and this is generally one order of magnitude larger than the output of the methanation plant itself (details of the methanation plant are provided by an additional figure in the following).
 The storage capacities, of energy or mass, are reported as red bars and their scale is the bottom horizontal axis with MWh or ton of CO2 as unit. This scale is logarithmic.
 The red bars are labeled with the maximum duration of discharge, expressed in hours.
 This index is the ratio between the installed energy and power output capacities.
