@@ -96,7 +96,7 @@ This comparison should clarify why some studies fail in properly optimize renewa
 
 
 ### Cost structures and prices
-The following figure shows the cost structure and price per unity of service delivered of each installed technology.
+The following figure shows the cost structure and price per unit of service delivered of each installed technology.
 The unitary cost is the sum of the following three components:
 - CAPEX + FO&M,  the investment annuity and the fixed operations and management costs.
 - VO&M, the variable operations and management costs.
@@ -104,11 +104,10 @@ The unitary cost is the sum of the following three components:
 
 Each unitary cost bar indicates in its label the net capacity factor of the technology.
 The net capacity factor is a result of the optimization, and refers to the useful generation excluding curtailment.
-The average price per unity of service delivered is indicated as a black diamond.
+The average price per unit of service delivered is indicated as a black diamond.
 This average price is derived by the dual variables of the linear program.
 Observe that in this scenario there are no active constraints on the minimum capacity of technologies.
 Therefore, each installed technology satisfies equality between costs and revenues, i.e. there is cost-price parity [Brown and Reichenberg, 2021](https://www.sciencedirect.com/science/article/pii/S0140988321002607).
-.
 ![](scenarios_and_results/Scenario_low_discount_bio_A_cost_price.png)
 
 ### Cost-revenue balances
