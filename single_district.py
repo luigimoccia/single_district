@@ -184,7 +184,8 @@ network = pypsa.Network()
 # Set the hours in the same year used for the CF wind and solar profiles
 hours_in_year = pd.date_range(start_date, end_date, freq='H')
 network.set_snapshots(hours_in_year)
-
+# Num of hours in a year, to account for leap years
+Num_hours = len(hours_in_year)
 # Add the electricty bus where the electric load will be assigned
 network.add("Bus","AC", carrier = "AC")
 
@@ -194,7 +195,7 @@ network.add("Bus", "H2", carrier = "H2")
 
 # Define a constant load
 # Default, a constant 1 GW
-Yearly_demand = Hourly_Avg_demand * 8760 /1.e+6 # TWh
+Yearly_demand = Hourly_Avg_demand * Num_hours /1.e+6 # TWh
 print('An average hourly demand (MWh):', Hourly_Avg_demand)
 print('For a yearly demand (TWh):', Yearly_demand)
 
@@ -228,7 +229,7 @@ if with_demand_H2_flag:
 
 
 
-Nyears = network.snapshot_weightings.objective.sum() / 8760.0
+Nyears = network.snapshot_weightings.objective.sum() / Num_hours
 
 tech_parameters = load_tech_parameters(name_file_tech_parameters, my_config["costs"], Nyears)
 #print(tech_parameters)
@@ -379,7 +380,7 @@ network.add("Generator",
 # Define CF for a nuclear reactor with average availibity in the year equal to 90%, i.e. 7884 hours
 # Assume a continuos block of hours as not available for the remaining hours 
 
-CF_nuclear=np.ones(8760)
+CF_nuclear=np.ones(Num_hours)
 # Assume the nuclear reactor is 10% of the time in manintenance/refuelling during the mid of the year, best case for nuclear and PV mix
 CF_nuclear[3942:4818]=0.
 this_id ="nuclear"
@@ -406,7 +407,7 @@ else:
 # Eventually add a second generator with unavalibility in a different period than the previous reactor
 # This only under the no-storage no-transmission constraints—some pretend that for renewables, so why not for nuclear? They will not like the results!
 
-#CF_nuclear_B = np.ones(8760)
+#CF_nuclear_B = np.ones(Num_hours)
 #CF_nuclear_B[:876] = 0.
 
 #network.add("Generator",
@@ -956,14 +957,14 @@ if with_PHS:
 if with_nuc_fleet and with_nuclear:
     P_nuc = model.variables["Generator-p_nom"].loc["nuclear"]
     E_nuc = model.variables["Generator-p"].loc[:, "nuclear"].sum()
-    lhs_nuc = E_nuc - P_nuc * 8760 * max_capacity_factor_nuclear
+    lhs_nuc = E_nuc - P_nuc * Num_hours * max_capacity_factor_nuclear
     model.add_constraints(lhs_nuc <= 0, name="Nuc_CF_fleet")
 
 # Add a constraint for the maximum capacity factor of hydrolisis
 if with_demand_H2_flag:
         P_H2 = model.variables['Link-p_nom'].loc['H2_in']
         E_H2 = model.variables['Link-p'].loc[:,'H2_in'].sum()
-        lhs_H2 = E_H2 - P_H2 * 8760 * max_capacity_factor_H2 
+        lhs_H2 = E_H2 - P_H2 * Num_hours * max_capacity_factor_H2 
         model.add_constraints(lhs_H2 <= 0, name="H2_CF_Max")
     
 # Solve
@@ -1380,13 +1381,13 @@ def advanced_network_statistics_V2(network,
     for i, my_l in enumerate(all_gen_plus_link_label):
         if generator_el_out_primary[i] > 0:
             generator_LCOE[i] = generator_capex_opex_primary_fuel[i] / generator_el_out_primary[i] * 1.e3 # €/MWh
-            generator_primary_CF[i] = generator_el_out_primary[i] * 1.e+6 / generator_installed_capacity[i] / 8760. 
-            generator_any_CF[i] = generator_any_output[i] * 1.e+6 / generator_installed_capacity[i] / 8760. 
+            generator_primary_CF[i] = generator_el_out_primary[i] * 1.e+6 / generator_installed_capacity[i] / Num_hours 
+            generator_any_CF[i] = generator_any_output[i] * 1.e+6 / generator_installed_capacity[i] / Num_hours 
         else:
             generator_LCOE[i] = 0.
             generator_primary_CF[i] = 0.
             if generator_installed_capacity[i] > 0. and generator_any_output[i] > 0. :
-                generator_any_CF[i] = generator_any_output[i] * 1.e+6 / generator_installed_capacity[i] / 8760. 
+                generator_any_CF[i] = generator_any_output[i] * 1.e+6 / generator_installed_capacity[i] / Num_hours 
             else:
                 generator_any_CF[i] = 0.
             
@@ -2416,7 +2417,7 @@ ax.set_ylim(0, network.links.loc["SynCH4_in", "p_nom_opt"] * 1.1)
 ax2.set_ylim(0, network.links_t.p2["SynCH4_in"].max() * 1.1)
 
 ax2.set_ylabel(r"ton CO$_2$")
-CF_SynCH4 = network.links_t.p0["SynCH4_in"].sum() /network.links.loc["SynCH4_in", "p_nom_opt"]/8760.
+CF_SynCH4 = network.links_t.p0["SynCH4_in"].sum() /network.links.loc["SynCH4_in", "p_nom_opt"]/Num_hours
 ax.plot(network.links_t.p0["SynCH4_in"], color="g", ls=":")
 ax2.plot(network.links_t.p2["SynCH4_in"], color="y", ls="-.")
 E_H2_in = network.links_t.p0["SynCH4_in"].sum()/1.e+6
@@ -2480,7 +2481,7 @@ fig, ax = plt.subplots(1, 1)
 ax.semilogy(my_prices)
 ax.set_ylabel("€/MWh")
 ax.set_xlabel("Hours per year")
-ax.set_xlim(left=0, right=8760)
+ax.set_xlim(left=0, right=Num_hours)
 plt.tight_layout()
 plt.title("Price duration curve, electricity")
 #plt.show()
