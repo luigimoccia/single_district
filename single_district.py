@@ -1623,7 +1623,7 @@ def storage_el_balance(network,
                 investment[i]    = investment_power[i] 
             
             # Avoid that a near zero or negative value because of precision propagates an error
-            if storage_capex[i] < epsilon:
+            if storage_capex[i] < 0.0000000001:
                 storage_capex[i] = 0.     
             
             storage_input_cost[i]  = this_tech_aux_cost + network.links_t.p0[s_l_in].multiply(network.snapshot_weightings.generators, axis=0).multiply(network.buses_t.marginal_price[b_l_in], axis=0).sum()/1.e+9 # in G€
