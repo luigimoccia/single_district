@@ -2507,7 +2507,7 @@ network.statistics.capacity_factor().loc[:][:]
 
 
 
-network.statistics.dispatch()
+#network.statistics.dispatch()
 
 
 network.statistics.curtailment()
