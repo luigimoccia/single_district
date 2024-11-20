@@ -12,7 +12,7 @@ Besides nuclear, the non-fossil electric technologies that may be activated are:
 Rooftop solar may be analyzed under two alternative profiles of the hourly *capacity factor* (CF).
 Short-, medium-, and long-term storage technologies are considered along with integrative biogenic gases.
 
-For further details, please see the [technical report](./reports/manuscript_draft.pdf), which fully describes the model depicted in the following figure.
+For further details, please see the [paper](https://www.sciencedirect.com/science/article/pii/S2666955224000352), which fully describes the model depicted in the following figure.
 ![](./figures/model_as_graph.png)
 
 ## Open source license and acknowledgments
