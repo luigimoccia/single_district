@@ -51,7 +51,7 @@ There are three ways, depending on your objectives.
 3. If you want to modify the model's structure, for example, by adding subsystems or defining new links, you need to modify the code in `single_district.py`. This may not be straightforward, even if you already know how to code in PyPSA, since the code uses custom procedures for the post-optimization analysis, and mapping errors between the new-defined model features and these post-opt procedures may occur.
 
 ## Output examples
-Please refer to Section 5 of the [paper](https://www.sciencedirect.com/science/article/pii/S2666955224000352), where the code output is fully described.
+Please refer to Section 6 of the [paper](https://www.sciencedirect.com/science/article/pii/S2666955224000352), where the code output is fully described.
 The subfolder [scenarios_and_results](./scenarios_and_results) contains PNG files of all the solved scenarios.
 The following figures are provided here for your convenience.
 These results refer to a scenario in which land-based wind and solar are not vetoed, and biogenic gases are allowed.
